@@ -36,6 +36,26 @@
   <!-- This script installs service_worker.js to provide PWA functionality to
        application. For more information, see:
        https://developers.google.com/web/fundamentals/primers/service-workers -->
+
+  <script type = "module">
+  import { initializeApp } from "firebase/app";
+  import { getAnalytics } from "firebase/analytics";
+  const firebaseConfig = {
+  apiKey: "AIzaSyBtSR9MW24aBFn6gQRHZpqgnqrIDuC5Cjk",
+  authDomain: "abins-musthafa.firebaseapp.com",
+  projectId: "abins-musthafa",
+  storageBucket: "abins-musthafa.appspot.com",
+  messagingSenderId: "601426448842",
+  appId: "1:601426448842:web:e444c3fcb613a740f3bf33",
+  measurementId: "G-B1FHJM2H6X"
+  };
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  </script>
+
+
+
   <script>
     var serviceWorkerVersion = null;
     var scriptLoaded = false;

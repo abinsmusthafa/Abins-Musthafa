@@ -1,11 +1,21 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile/fire_base/firebase_db.dart';
 import 'package:flutter_profile/screens/home/home_screen.dart';
 import 'package:flutter_profile/screens/main/main_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'constants.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+      options: FirebaseOptions(
+    apiKey: "AIzaSyBtSR9MW24aBFn6gQRHZpqgnqrIDuC5Cjk",
+    projectId: "abins-musthafa",
+    messagingSenderId: "601426448842",
+    appId: "1:601426448842:web:e444c3fcb613a740f3bf33",
+  ));
+
   runApp(MyApp());
 }
 
