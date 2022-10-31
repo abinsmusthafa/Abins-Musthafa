@@ -15,7 +15,7 @@ void main() async {
     messagingSenderId: "601426448842",
     appId: "1:601426448842:web:e444c3fcb613a740f3bf33",
   ));
-
+  FireStoreDataBase().siteVisit();
   runApp(MyApp());
 }
 

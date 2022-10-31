@@ -88,6 +88,28 @@ class FireStoreDataBase {
     //creates a new doc with unique doc ID
   }
 
+  Future<void> siteVisit() async {
+    Map<String, dynamic> dDetail = await deviceInfo();
+
+    final Map<String, dynamic> thirdMap = {
+      ...{
+        'createdOn': FieldValue.serverTimestamp()
+      },
+      ...dDetail,
+    };
+
+    try {
+      return FirebaseFirestore.instance
+          .collection("Profile Visit")
+          .add(thirdMap)
+          .then((value) => debugPrint("User Added"))
+          .catchError((error) => debugPrint("Failed to add user: $error"));
+
+      ;
+    } catch (e) {}
+    //creates a new doc with unique doc ID
+  }
+
   Future<void> ClickExploreNow() async {
     Map<String, dynamic> dDetail = await deviceInfo();
 
