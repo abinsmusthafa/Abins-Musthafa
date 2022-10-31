@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 
 class FireStoreDataBase {
   List studentsList = [];
   final CollectionReference collectionRef =
-  FirebaseFirestore.instance.collection("clickStream");
+  FirebaseFirestore.instance.collection("Project App Store");
 
   Future getData() async {
     try {
@@ -25,23 +27,85 @@ class FireStoreDataBase {
     }
   }
 
-  Future<void> addStudents() async {
-    // await printDocID();
+  Future<void> ClickAppDetails(Map<String, dynamic> appDetail) async {
+    Map<String, dynamic> dDetail = await deviceInfo();
+
+    final Map<String, dynamic> thirdMap = {
+      ...appDetail,
+      ...dDetail,
+    };
+
     try {
-      return collectionRef
-          .add({
-        'Name': "TestName",
-      })
+      return FirebaseFirestore.instance
+          .collection("Project App Store")
+          .add(thirdMap)
           .then((value) => debugPrint("User Added"))
           .catchError((error) => debugPrint("Failed to add user: $error"));
 
-
-    ;
-    } catch (e) {
-      print("Ok0000000");
-    }
+      ;
+    } catch (e) {}
     //creates a new doc with unique doc ID
+  }
 
+  Future<void> socialMedia(Map<String, dynamic> appDetail) async {
+    Map<String, dynamic> dDetail = await deviceInfo();
+
+    final Map<String, dynamic> thirdMap = {
+      ...appDetail,
+      ...dDetail,
+    };
+
+    try {
+      return FirebaseFirestore.instance
+          .collection("Social Media")
+          .add(thirdMap)
+          .then((value) => debugPrint("User Added"))
+          .catchError((error) => debugPrint("Failed to add user: $error"));
+
+      ;
+    } catch (e) {}
+    //creates a new doc with unique doc ID
+  }
+  Future<void> downLoadCV() async {
+    Map<String, dynamic> dDetail = await deviceInfo();
+
+    final Map<String, dynamic> thirdMap = {
+      ...{
+        'createdOn': FieldValue.serverTimestamp()
+      },
+      ...dDetail,
+    };
+
+    try {
+      return FirebaseFirestore.instance
+          .collection("DownLoad CV")
+          .add(thirdMap)
+          .then((value) => debugPrint("User Added"))
+          .catchError((error) => debugPrint("Failed to add user: $error"));
+
+      ;
+    } catch (e) {}
+    //creates a new doc with unique doc ID
+  }
+
+  Future<void> ClickExploreNow() async {
+    Map<String, dynamic> dDetail = await deviceInfo();
+
+    final Map<String, dynamic> thirdMap = {
+      ...{'createdOn': FieldValue.serverTimestamp()},
+      ...dDetail,
+    };
+
+    try {
+      return FirebaseFirestore.instance
+          .collection("Explore Now")
+          .add(thirdMap)
+          .then((value) => debugPrint("User Added"))
+          .catchError((error) => debugPrint("Failed to add user: $error"));
+
+      ;
+    } catch (e) {}
+    //creates a new doc with unique doc ID
   }
 
   Future<void> addField() {
@@ -63,6 +127,28 @@ class FireStoreDataBase {
       var documentID = snapshot.id;
       debugPrint("documentID");
       debugPrint(documentID);
+    }
+  }
+
+  Future<Map<String, dynamic>> deviceInfo() async {
+    try {
+      final deviceInfoPlugin = DeviceInfoPlugin();
+      final deviceInfo = await deviceInfoPlugin.deviceInfo;
+
+      return {
+        "browserName": deviceInfo.data["browserName"].toString(),
+        "appCodeName": deviceInfo.data["appCodeName"],
+        "appName": deviceInfo.data["appName"],
+        "appVersion": deviceInfo.data["appVersion"],
+        "deviceMemory": deviceInfo.data["deviceMemory"],
+        "language": deviceInfo.data["language"],
+        "platform": deviceInfo.data["platform"],
+        "userAgent": deviceInfo.data["userAgent"],
+        "vendor": deviceInfo.data["vendor"],
+        "hardwareConcurrency": deviceInfo.data["hardwareConcurrency"]
+      };
+    } catch (e) {
+      return {};
     }
   }
 }

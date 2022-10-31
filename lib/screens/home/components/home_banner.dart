@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile/fire_base/firebase_db.dart';
 import 'package:flutter_profile/responsive.dart';
 import 'dart:js' as js;
 import '../../../constants.dart';
@@ -46,6 +47,7 @@ class HomeBanner extends StatelessWidget {
                 if (!Responsive.isMobileLarge(context))
                   ElevatedButton(
                     onPressed: () {
+                      FireStoreDataBase().ClickExploreNow();
                       js.context.callMethod('open', ["https://play.google.com/store/apps/dev?id=6561437415087926374"]);
                     },
                     style: TextButton.styleFrom(

@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_profile/fire_base/firebase_db.dart';
 import 'package:flutter_profile/models/Project.dart';
 import 'package:flutter_profile/responsive.dart';
 import 'dart:js' as js;
@@ -44,6 +46,10 @@ class ProjectCard extends StatelessWidget {
           Spacer(),
           TextButton(
             onPressed: () {
+              try {
+                FireStoreDataBase().ClickAppDetails({"ClickAppName": project.title, 'createdOn': FieldValue.serverTimestamp()});
+              } catch (e) {}
+
               js.context.callMethod('open', [project.appstoreLink]);
 
             },

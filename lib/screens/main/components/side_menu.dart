@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile/constants.dart';
+import 'package:flutter_profile/fire_base/firebase_db.dart';
 import 'package:flutter_svg/svg.dart';
 
 import 'area_info_text.dart';
@@ -47,7 +49,9 @@ class SideMenu extends StatelessWidget {
                     Divider(),
                     SizedBox(height: defaultPadding / 2),
                     TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        FireStoreDataBase().downLoadCV();
+                      },
                       child: FittedBox(
                         child: Row(
                           children: [
@@ -74,6 +78,7 @@ class SideMenu extends StatelessWidget {
                           Spacer(),
                           IconButton(
                             onPressed: () {
+                              FireStoreDataBase().socialMedia({"Media": "linkedin", 'createdOn': FieldValue.serverTimestamp()});
                               js.context.callMethod('open', ["https://www.linkedin.com/in/abins-musthafa/"]);
 
                             },
@@ -81,6 +86,8 @@ class SideMenu extends StatelessWidget {
                           ),
                           IconButton(
                             onPressed: () {
+                              FireStoreDataBase().socialMedia({"Media": "github", 'createdOn': FieldValue.serverTimestamp()});
+
                               js.context.callMethod('open', ["https://github.com/abinsmusthafa"]);
                             },
                             icon: SvgPicture.asset("assets/icons/github.svg"),
